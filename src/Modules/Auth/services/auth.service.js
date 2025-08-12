@@ -3,6 +3,23 @@ import { compareSync } from "bcrypt";
 import { generateToken, verifyToken } from "../../../Utils/token.utils.js";
 import { v4 as uuidv4 } from "uuid";
 
+/**
+ * @description Handles user registration
+ * @async
+ * @function signUpService
+ * @param {Object} req - Express request object
+ * @param {Object} req.body - Request body
+ * @param {string} req.body.username - Username of the user
+ * @param {string} req.body.email - Email of the user
+ * @param {string} req.body.password - Password of the user
+ * @param {number} req.body.age - Age of the user
+ * @param {string} [req.body.gender] - Gender of the user (optional)
+ * @param {Object} res - Express response object
+ * @returns {Promise<Object>} Response object with status and user data
+ * @throws {409} If email already exists
+ * @throws {500} If there's a server error
+ */
+/* == signUpService == */
 export const signUpService = async (req, res) => {
   /* Destructure req.body */
   const { username, email, password, age, gender } = req.body;
@@ -47,6 +64,20 @@ export const signUpService = async (req, res) => {
   });
 };
 
+/**
+ * @description Handles user login and issues JWT token
+ * @async
+ * @function signInService
+ * @param {Object} req - Express request object
+ * @param {Object} req.body - Request body
+ * @param {string} req.body.email - User's email
+ * @param {string} req.body.password - User's password
+ * @param {Object} res - Express response object
+ * @returns {Promise<Object>} Response object with status and access token
+ * @throws {404} If user not found
+ * @throws {401} If invalid credentials
+ */
+/* == signInService == */
 export const signInService = async (req, res) => {
   /* destructure request body */
   const { email, password } = req.body;
@@ -78,6 +109,17 @@ export const signInService = async (req, res) => {
   });
 };
 
+/**
+ * @description Handles user logout by blacklisting the token
+ * @async
+ * @function signOutService
+ * @param {Object} req - Express request object
+ * @param {Object} req.headers - Request headers
+ * @param {string} req.headers.accesstoken - JWT access token to blacklist
+ * @param {Object} res - Express response object
+ * @returns {Promise<Object>} Response object with status message
+ */
+/* == signOutService == */
 export const signOutService = async (req, res) => {
   /* destructure request headers */
   const { accesstoken } = req.headers;

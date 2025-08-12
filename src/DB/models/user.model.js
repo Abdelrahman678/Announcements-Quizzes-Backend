@@ -29,7 +29,7 @@ const userSchema = new Schema(
     gender: {
       type: String,
       enum: Object.values(genderEnum),
-      default: genderEnum.MALE,
+      default: genderEnum.UNKOWN,
     },
   },
   {

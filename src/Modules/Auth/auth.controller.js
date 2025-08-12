@@ -16,6 +16,8 @@ import {
   signInSchema,
   signOutSchema,
 } from "../../Validators/auth.schema.js";
+
+/* == Auth Router == */
 const authController = Router();
 
 /* == signUpController == */
