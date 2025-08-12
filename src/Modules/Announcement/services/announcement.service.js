@@ -123,14 +123,14 @@ export const updateAnnouncementService = async (req, res) => {
   const { id } = req.params;
   /* destructure request body */
   const { title, content, course } = req.body;
+  /* destructure loggedInUser */
+  const { _id } = req.loggedInUser;
   /* check if no fields are provided */
   if (!title && !content && !course) {
     return res.status(400).json({
       message: "Please provide at least one field to update",
     });
   }
-  /* destructure loggedInUser */
-  const { _id } = req.loggedInUser;
   /* find not deleted announcement by id */
   const announcement = await Announcement.findOne({
     _id: id,
@@ -155,12 +155,6 @@ export const updateAnnouncementService = async (req, res) => {
   if (course) announcement.course = course;
   /* save announcement */
   await announcement.save();
-  /* if announcement not updated return error response */
-  if (!announcement) {
-    return res.status(500).json({
-      message: "Something went wrong. Please try again later.",
-    });
-  }
   /* return success response */
   return res.status(200).json({
     message: "Announcement updated successfully",

@@ -16,7 +16,7 @@ async function bootStrap() {
   /* for parsing the request body*/
   app.use(express.json());
 
-  /* use cors commented */
+  /* use cors commented for now */
   // app.use(cors());
 
   /* use helmet to secure the app headers*/

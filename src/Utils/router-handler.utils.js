@@ -1,21 +1,22 @@
-// import { rateLimit } from "express-rate-limit";
+import { rateLimit } from "express-rate-limit";
 import {
   authController,
   announcementController,
+  quizController,
 } from "../Modules/index.modules.controller.js";
-/* rate Limiter commented for now */
-// const limiter = rateLimit({
-//   windowMs: 15 * 60 * 1000,
-//   limit: 15,
-//   message: {
-//     message: "Too many requests, please try again later",
-//   },
-//   legacyHeaders: false,
-// });
+/* rate limiter */
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 15,
+  message: {
+    message: "Too many requests, please try again later",
+  },
+  legacyHeaders: false,
+});
 
 const routerHandler = (app) => {
   /* apply limiter to all routes */
-  // app.use(limiter);
+  app.use(limiter);
 
   /* == Home Router == */
   app.get("/", (req, res) => {
@@ -27,6 +28,8 @@ const routerHandler = (app) => {
   app.use("/auth", authController);
   /* == Announcement Router == */
   app.use("/announcement", announcementController);
+  /* == Quiz Router == */
+  app.use("/quiz", quizController);
 
   /* == Error 404 Handler == */
   app.use((req, res) => {

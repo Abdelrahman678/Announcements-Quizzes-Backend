@@ -8,9 +8,6 @@ const quizSchema = new Schema(
       type: String,
       required: true,
     },
-    description: {
-      type: String,
-    },
     course: {
       type: String,
       required: true,

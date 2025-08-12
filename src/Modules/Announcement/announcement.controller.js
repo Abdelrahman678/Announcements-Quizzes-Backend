@@ -9,7 +9,12 @@ import {
 import {
   errorHandlerMiddleware,
   authenticationMiddleware,
+  validationMiddleware,
 } from "../../Middleware/index.middleware.js";
+import {
+  createAnnouncementSchema,
+  updateAnnouncementSchema,
+} from "../../Validators/announcement.schema.js";
 
 /* == Announcement Router == */
 const announcementController = Router();
@@ -30,11 +35,13 @@ announcementController.get(
 /* == createAnnouncementController == */
 announcementController.post(
   "/create-announcement",
+  validationMiddleware(createAnnouncementSchema),
   errorHandlerMiddleware(createAnnouncementService)
 );
 /* == updateAnnouncementController == */
 announcementController.put(
   "/update-announcement/:id",
+  validationMiddleware(updateAnnouncementSchema),
   errorHandlerMiddleware(updateAnnouncementService)
 );
 /* == deleteAnnouncementController == */
