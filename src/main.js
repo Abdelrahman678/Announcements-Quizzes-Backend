@@ -12,22 +12,19 @@ config({ path: path.resolve(`.env`) });
 const allowedOrigins = [
   process.env.FRONTEND_CORS_ORIGIN,
   process.env.FRONTEND_CORS_ORIGIN_PROD,
-  process.env.FRONTEND_CORS_ORIGIN_PROD_ACTUAL
+  process.env.FRONTEND_CORS_ORIGIN_PROD_ACTUAL,
 ].filter(Boolean);
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if (!origin) return callback(null, true); // allow requests like Postman
-    if (
-      allowedOrigins.includes(origin) ||
-      /\.vercel\.app$/.test(origin)
-    ) {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin) || /\.vercel\.app$/.test(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true,
 };
 
 /* bootstrap function */
@@ -40,8 +37,6 @@ async function bootStrap() {
 
   /* use cors */
   app.use(cors(corsOptions));
-
-
 
   /* use helmet to secure the app headers*/
   app.use(helmet());
