@@ -16,7 +16,7 @@ const limiter = rateLimit({
 
 const routerHandler = (app) => {
   /* apply limiter to all routes */
-  app.use(limiter);
+  // app.use(limiter);
 
   /* == Home Router == */
   app.get("/", (req, res) => {
