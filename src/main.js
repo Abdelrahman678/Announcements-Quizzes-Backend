@@ -9,6 +9,10 @@ import cors from "cors";
 // config .env file
 config({ path: path.resolve(`.env`) });
 
+const allowedOrigins = [
+  process.env.FRONTEND_CORS_ORIGIN,
+  process.env.FRONTEND_CORS_ORIGIN_PROD,
+];
 /* bootstrap function */
 async function bootStrap() {
   /* express app */
@@ -20,7 +24,13 @@ async function bootStrap() {
   /* use cors */
   app.use(
     cors({
-      origin: process.env.FRONTEND_CORS_ORIGIN || process.env.FRONTEND_CORS_ORIGIN_PROD,
+      origin: function (origin, callback) {
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+          callback(null, true);
+        } else {
+          callback(new Error("Not allowed by CORS"));
+        }
+      },
     })
   );
   /* use helmet to secure the app headers*/
