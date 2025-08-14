@@ -21,7 +21,7 @@ const quizController = Router();
 
 /* == authentication middleware == */
 /**
- *?  comment for testing with frontend as there is no sign-in using email and password in frontend
+ *?  commented for testing with frontend as there is no sign-in using email and password in frontend
  * **/
 // quizController.use(authenticationMiddleware());
 

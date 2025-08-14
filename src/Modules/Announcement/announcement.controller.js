@@ -20,7 +20,10 @@ import {
 const announcementController = Router();
 
 /* == authentication middleware == */
-announcementController.use(authenticationMiddleware());
+/**
+ *? commented for testing with frontend as there is no sign-in using email and password in frontend
+ * **/
+// announcementController.use(authenticationMiddleware());
 
 /* == getAllAnnouncementsController == */
 announcementController.get(
