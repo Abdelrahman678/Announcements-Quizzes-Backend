@@ -20,7 +20,10 @@ import {
 const quizController = Router();
 
 /* == authentication middleware == */
-quizController.use(authenticationMiddleware());
+/**
+ *?  comment for testing with frontend as there is no sign-in using email and password in frontend
+ * **/
+// quizController.use(authenticationMiddleware());
 
 /* == getAllQuizzesController == */
 quizController.get(
