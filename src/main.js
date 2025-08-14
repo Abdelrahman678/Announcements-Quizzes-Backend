@@ -13,8 +13,9 @@ const allowedOrigins = [
   process.env.FRONTEND_CORS_ORIGIN,
   process.env.FRONTEND_CORS_ORIGIN_PROD,
   process.env.FRONTEND_CORS_ORIGIN_PROD_ACTUAL,
-  undefined
-];
+  /\.vercel\.app$/,
+  undefined,
+].filter(Boolean);
 /* bootstrap function */
 async function bootStrap() {
   /* express app */
