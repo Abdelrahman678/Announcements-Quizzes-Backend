@@ -12,6 +12,7 @@ config({ path: path.resolve(`.env`) });
 const allowedOrigins = [
   process.env.FRONTEND_CORS_ORIGIN,
   process.env.FRONTEND_CORS_ORIGIN_PROD,
+  undefined
 ];
 /* bootstrap function */
 async function bootStrap() {
