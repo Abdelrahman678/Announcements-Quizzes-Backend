@@ -9,36 +9,27 @@ import cors from "cors";
 // config .env file
 config({ path: path.resolve(`.env`) });
 
-cconst allowedOrigins = [
+const allowedOrigins = [
   process.env.FRONTEND_CORS_ORIGIN,
   process.env.FRONTEND_CORS_ORIGIN_PROD,
-  process.env.FRONTEND_CORS_ORIGIN_PROD_ACTUAL,
-  /^https:\/\/announcements-quizzes-frontend-.*\.vercel\.app$/,  // Updated pattern
-  /^https:\/\/announcements-quizzes-frontend\.vercel\.app$/,      // For production
-  undefined,
+  process.env.FRONTEND_CORS_ORIGIN_PROD_ACTUAL
 ].filter(Boolean);
 
 const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    // Check if the origin matches any allowed pattern
-    if (allowedOrigins.some(pattern => {
-      if (pattern instanceof RegExp) {
-        return pattern.test(origin);
-      }
-      return pattern === origin;
-    })) {
-      return callback(null, true);
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // allow requests like Postman
+    if (
+      allowedOrigins.includes(origin) ||
+      /\.vercel\.app$/.test(origin)
+    ) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
     }
-    
-    callback(new Error('Not allowed by CORS'));
   },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  credentials: true
 };
+
 /* bootstrap function */
 async function bootStrap() {
   /* express app */
@@ -49,7 +40,7 @@ async function bootStrap() {
 
   /* use cors */
   app.use(cors(corsOptions));
-  app.options('*', cors(corsOptions));
+
 
 
   /* use helmet to secure the app headers*/
