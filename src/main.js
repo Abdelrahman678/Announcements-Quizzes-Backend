@@ -20,7 +20,7 @@ async function bootStrap() {
   /* use cors */
   app.use(
     cors({
-      origin: process.env.FRONTEND_CORS_ORIGIN,
+      origin: process.env.FRONTEND_CORS_ORIGIN || process.env.FRONTEND_CORS_ORIGIN_PROD,
     })
   );
   /* use helmet to secure the app headers*/
